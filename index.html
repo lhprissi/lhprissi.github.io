@@ -1,7 +1,124 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luiz Henrique P. Rissi - Portfólio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" /> 
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+      color: #ecf0f1;
+      background-attachment: fixed;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px 30px;
+    }
+
+    header h1 {
+      font-size: 2.8em;
+      margin: 0;
+    }
+
+    header p {
+      font-size: 1.2em;
+      color: #bdc3c7;
+    }
+
+    section {
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
+      background-color: rgba(0, 0, 0, 0.4);
+      border-radius: 12px;
+      margin-bottom: 40px;
+    }
+
+    h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #00cec9;
+    }
+
+    p {
+      font-size: 1.1em;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    a {
+      color: #81ecec;
+      text-decoration: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #95a5a6;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 1000, // duração da animação em ms
+    once: true      // anima só na primeira vez
+  });
+</script>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages. Only for testing, wait for some updates!</p>
+
+    <header data-aos="fade-down">
+    <h1>Luiz Henrique Pissinin Rissi</h1>    
+    <p>Profissional em Transição para Desenvolvimento de Sistemas • Análise e Desenvolvimento de Sistemas</p>
+    
+
+  </header>
+
+  <section id="sobre-mim" data-aos="fade-up">
+    <h2>Sobre Mim </h2>
+    <p id="data-atualizacao">Última atualização em: ...</p>
+    <p>
+      Sou <strong>Luiz Henrique Pissinin Rissi</strong>, um profissional multidisciplinar em transição para a área de tecnologia, movido por uma paixão verdadeira por sistemas, dados e soluções inteligentes. Durante anos atuei em funções técnicas e administrativas — de suporte em informática à análise de sistemas — sempre buscando integrar tecnologia e eficiência nos ambientes por onde passei.
+    </p>
+    <p>
+      A vida em cidades pequenas impôs limitações de acesso ao mercado tech, mas nunca apagou minha curiosidade. De forma autodidata, mergulhei no mundo da programação, infraestrutura e automação, me desafiando diariamente com novos aprendizados, como Python, HTML, VBA, BI e bancos de dados. Essa vontade de crescer me levou a iniciar a graduação em Análise e Desenvolvimento de Sistemas.
+    </p>
+    <p>
+      Com a popularização do trabalho remoto e híbrido, vejo hoje a oportunidade real de me conectar com empresas que valorizam competência, dedicação e vontade de aprender — valores que carrego comigo. Estou em busca de uma oportunidade na área tech, onde possa aplicar o que venho estudando e desenvolver ainda mais minhas habilidades.
+    </p>
+    <p>
+      Mais do que uma nova carreira, tecnologia representa para mim um reencontro com minha vocação: resolver problemas, melhorar processos e construir soluções com propósito. Estou pronto para esse próximo passo.
+    </p>
+    </p>
+  </section>
+
+  <footer data-aos="fade-up">
+     <a href="https://www.linkedin.com/in/henriquerissi" target="_blank">Clique aqui e visite no LinkedIn!</a>
+     <p></p>
+        <p> </p>
+    
+  </footer>
+
+  <script>
+    // Define a data de última modificação automaticamente
+    const dataMod = new Date(document.lastModified);
+    const formatada = dataMod.toLocaleDateString('pt-BR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    });
+    document.getElementById("data-atualizacao").textContent = "Última atualização em: " + formatada;
+  </script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000, once: true });
+  </script>
+
 </body>
 </html>
