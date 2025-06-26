@@ -34,7 +34,6 @@
 
   <section id="sobre-mim" data-aos="fade-up">
     <h2>Sobre Mim</h2>
-    <p id="data-atualizacao">Última atualização em: ...</p>
     <p>
       Sou <strong>Luiz Henrique Pissinin Rissi</strong>, um profissional multidisciplinar em transição para a área de tecnologia, movido por uma paixão verdadeira por sistemas, dados e soluções inteligentes. Durante anos atuei em funções técnicas e administrativas — de suporte em informática à análise de sistemas — sempre buscando integrar tecnologia e eficiência nos ambientes por onde passei.
     </p>
@@ -50,8 +49,8 @@
   </section>
 
   <footer data-aos="fade-up">
-    <p>&copy; Luiz Henrique P. Rissi</p>
-    <p id="data-atualizacao">Última atualização em: ...</p>
+    <p id="data-atualizacao">&copy; Luiz Henrique P. Rissi – Última atualização em: ...</p>
+    
    </footer>
 
   <!-- JS: Data de modificação e AOS -->
@@ -62,9 +61,11 @@
       month: '2-digit',
       year: 'numeric'
     });
-    document.getElementById("data-atualizacao").textContent = "Última atualização em: " + formatada;
+  
+    document.getElementById("data-atualizacao").innerHTML =
+      "&copy; Luiz Henrique P. Rissi – Última atualização em: " + formatada;
   </script>
-
+  
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
     AOS.init({ duration: 1000, once: true });
