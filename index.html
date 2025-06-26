@@ -11,49 +11,52 @@
   <!-- AOS (Animate On Scroll) -->
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 
+  <!-- CSS externo -->
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-    <nav class="navbar">
-        <div class="logo">
-          <a href="index.html">
-            <img src="logo.png" alt="Logo" />
-          </a>
-        </div>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="experiencias.html">Experiências</a></li>
-          <li><a href="contato.html">Contato</a></li>
-        </ul>
-      </nav>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="index.html">
+        <img src="logo.png" alt="Logo" />
+      </a>
+    </div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="experiencias.html">Experiências</a></li>
+      <li><a href="contato.html">Contato</a></li>
+    </ul>
+  </nav>
+
   <header data-aos="fade-down">
     <h1>Luiz Henrique Pissinin Rissi</h1>
     <p>Profissional multidisciplinar em transição para Desenvolvimento de Sistemas • Análise e Desenvolvimento de Sistemas</p>
   </header>
 
-  <section id="sobre-mim" data-aos="fade-up">
-    <h2>Sobre Mim</h2>
-    <p>
-      Sou <strong>Luiz Henrique Pissinin Rissi</strong>, um profissional multidisciplinar em transição para a área de tecnologia, movido por uma paixão verdadeira por sistemas, dados e soluções inteligentes. Durante anos atuei em funções técnicas e administrativas — de suporte em informática à análise de sistemas — sempre buscando integrar tecnologia e eficiência nos ambientes por onde passei.
-    </p>
-    <p data-aos="fade-up">
-      A vida em cidades pequenas impôs limitações de acesso ao mercado tech e de cursos, o que me fez me formar em contabilidade devido a minha segunda paixão que seria pelo mundo das finanças, mas nunca apagou minha curiosidade. De forma autodidata, mergulhei no mundo da tecnologia, inicialmente como técnico de informatica, tive uma aventura iniciando uma empresa de provedor de internet sem fio entre 2009 e 2011, onde montei e configurei por conta própria servidores mikrotik, mas devido a burocracia da época decidi abandonar esse mundo por um tempo, além dos trabalhos por indicação tive mais experiencias recentes que me colocaram na pratica da infraestrutura, e em meu ultimo trabalho devido ao meu bom desempenho no trabalho anterior consegui uma vaga como analista tecnico de sistemas em uma consultoria de sistemas de saude publica, atualmente estou me desafiando diariamente com novos aprendizados, como Python, HTML, CSS, BI e bancos de dados. Essa vontade de crescer me levou a iniciar a graduação em Análise e Desenvolvimento de Sistemas.
-    </p>
-    <p>
-      Com a popularização do trabalho remoto e híbrido, vejo hoje a oportunidade real de me conectar com empresas que valorizam competência, dedicação e vontade de aprender — valores que carrego comigo. Estou em busca de uma oportunidade na área tech, onde possa aplicar o que venho estudando e desenvolver ainda mais minhas habilidades.
-    </p>
-    <p data-aos="fade-down">
-      Mais do que uma nova carreira, tecnologia representa para mim um reencontro com minha vocação: resolver problemas, melhorar processos e construir soluções com propósito. Estou pronto para esse próximo passo.
-    </p>
-  </section>
+  <main>
+    <section id="sobre-mim" data-aos="fade-up">
+      <h2>Sobre Mim</h2>
+      <p>
+        Sou <strong>Luiz Henrique Pissinin Rissi</strong>, um profissional multidisciplinar em transição para a área de tecnologia, movido por uma paixão verdadeira por sistemas, dados e soluções inteligentes. Durante anos atuei em funções técnicas e administrativas — de suporte em informática à análise de sistemas — sempre buscando integrar tecnologia e eficiência nos ambientes por onde passei.
+      </p>
+      <p data-aos="fade-up">
+        A vida em cidades pequenas impôs limitações de acesso ao mercado tech e de cursos, o que me fez me formar em contabilidade devido à minha segunda paixão: o mundo das finanças. Mas nunca apaguei minha curiosidade. De forma autodidata, mergulhei no mundo da tecnologia, inicialmente como técnico de informática. Tive uma aventura iniciando uma empresa de provedor de internet sem fio entre 2009 e 2011, onde montei e configurei por conta própria servidores Mikrotik. Por burocracia da época, decidi encerrar. Mais tarde, tive experiências práticas em infraestrutura e, em meu último trabalho, fui contratado como analista técnico de sistemas em uma consultoria de saúde pública. Atualmente estudo Python, HTML, CSS, BI e bancos de dados — o que me motivou a iniciar a graduação em Análise e Desenvolvimento de Sistemas.
+      </p>
+      <p>
+        Com a popularização do trabalho remoto e híbrido, vejo hoje a oportunidade real de me conectar com empresas que valorizam competência, dedicação e vontade de aprender — valores que carrego comigo. Estou em busca de uma oportunidade na área tech, onde possa aplicar o que venho estudando e desenvolver ainda mais minhas habilidades.
+      </p>
+      <p data-aos="fade-down">
+        Mais do que uma nova carreira, tecnologia representa para mim um reencontro com minha vocação: resolver problemas, melhorar processos e construir soluções com propósito. Estou pronto para esse próximo passo.
+      </p>
+    </section>
+  </main>
 
-  <footer data-aos="fade-down">
+  <footer>
     <p id="data-atualizacao">&copy; Luiz Henrique P. Rissi – Última atualização em: ...</p>
-    
-   </footer>
+  </footer>
 
-  <!-- JS: Data de modificação e AOS -->
+  <!-- Scripts -->
   <script>
     const dataMod = new Date(document.lastModified);
     const formatada = dataMod.toLocaleDateString('pt-BR', {
@@ -61,15 +64,13 @@
       month: '2-digit',
       year: 'numeric'
     });
-  
     document.getElementById("data-atualizacao").innerHTML =
       "&copy; Luiz Henrique P. Rissi – Última atualização em: " + formatada;
   </script>
-  
+
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
     AOS.init({ duration: 1000, once: true });
   </script>
-
 </body>
 </html>
