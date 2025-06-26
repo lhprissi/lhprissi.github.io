@@ -50,10 +50,23 @@
   
  </section>
 
-  <footer data-aos="fade-up">
-    <p>&copy; Luiz Henrique P. Rissi</p>
-    <p id="data-atualizacao">Última atualização em: ...</p>
-  </footer>
+ <footer data-aos="fade-up">
+    <p id="data-atualizacao">&copy; Luiz Henrique P. Rissi – Última atualização em: ...</p>
+    
+   </footer>
+
+  <!-- JS: Data de modificação e AOS -->
+  <script>
+    const dataMod = new Date(document.lastModified);
+    const formatada = dataMod.toLocaleDateString('pt-BR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    });
+  
+    document.getElementById("data-atualizacao").innerHTML =
+      "&copy; Luiz Henrique P. Rissi – Última atualização em: " + formatada;
+  </script>
 
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
