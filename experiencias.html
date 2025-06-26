@@ -53,9 +53,11 @@
  <footer data-aos="fade-down">
     <p id="data-atualizacao">&copy; Luiz Henrique P. Rissi – Última atualização em: ...</p>
     
-   </footer>
+  <footer>
+    <p id="data-atualizacao">&copy; Luiz Henrique P. Rissi – Última atualização em: ...</p>
+  </footer>
 
-  <!-- JS: Data de modificação e AOS -->
+  <!-- Scripts -->
   <script>
     const dataMod = new Date(document.lastModified);
     const formatada = dataMod.toLocaleDateString('pt-BR', {
@@ -63,7 +65,6 @@
       month: '2-digit',
       year: 'numeric'
     });
-  
     document.getElementById("data-atualizacao").innerHTML =
       "&copy; Luiz Henrique P. Rissi – Última atualização em: " + formatada;
   </script>
