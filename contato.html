@@ -36,12 +36,11 @@
     <p>👨🏻‍💻 GitHub (work in progress...): <a href="https://github.com/lhprissi" target="_blank">github.com/lhprissi</a></p>
   </section>
 
-  <footer data-aos="fade-down">
+  <footer>
     <p id="data-atualizacao">&copy; Luiz Henrique P. Rissi – Última atualização em: ...</p>
-    
-   </footer>
+  </footer>
 
-  <!-- JS: Data de modificação e AOS -->
+  <!-- Scripts -->
   <script>
     const dataMod = new Date(document.lastModified);
     const formatada = dataMod.toLocaleDateString('pt-BR', {
@@ -49,13 +48,14 @@
       month: '2-digit',
       year: 'numeric'
     });
-  
     document.getElementById("data-atualizacao").innerHTML =
       "&copy; Luiz Henrique P. Rissi – Última atualização em: " + formatada;
   </script>
+
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
     AOS.init({ duration: 1000, once: true });
   </script>
 </body>
 </html>
+
