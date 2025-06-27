@@ -14,44 +14,39 @@ body {
 
 /* navbar */
 .navbar {
-  background-color: rgba(0, 0, 0, 0.6);
-  position: sticky;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-  backdrop-filter: blur(5px);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 30px;
-  box-sizing: border-box;
+  flex-wrap: wrap; /* Permite quebra em telas pequenas */
+  padding: 10px 30px;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
 }
 
-.navbar .logo img {
-  height: 80px;
-  vertical-align: middle;
+.logo img {
+  height: 50px;
 }
 
-.navbar ul {
-  display: flex;
-  justify-content: center;
-  margin: 0;
-  padding: 10px 0;
+.nav-links {
   list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
 }
 
-.navbar li {
-  margin: 0 20px;
-}
-
-.navbar a {
+.nav-links li a {
   color: #ecf0f1;
   text-decoration: none;
   font-weight: 600;
+  font-size: 1.1em;
   transition: color 0.3s;
 }
 
-.navbar a:hover {
+.nav-links li a:hover {
   color: #00cec9;
 }
 
@@ -103,8 +98,14 @@ footer {
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 20px;
+    align-items: center;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
   }
 
   .navbar .logo img {
