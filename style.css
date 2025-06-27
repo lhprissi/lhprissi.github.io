@@ -103,45 +103,51 @@ footer {
   background-color: rgba(0, 0, 0, 0.3);
   border-top: 1px solid #444;
 }
+
 @media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 20px;
-  }
+.navbar {
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+  box-sizing: border-box;
+}
 
-  .navbar .logo img {
-    height: 60px;
-  }
+.navbar .logo img {
+  height: 80px;
+  vertical-align: middle;
+}
 
-  .navbar ul {
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-    padding: 0;
-  }
+.navbar ul {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 10px 0;
+  list-style: none;
+}
 
-  .navbar li {
-    margin: 10px 0;
-  }
-
+.navbar li {
+  margin: 0 20px;
+}
   .navbar a {
     font-size: 1em;
   }
 
-  header h1 {
-    font-size: 1.8em;
+  header {
+    padding: 100px 20px 20px;
   }
 
-  header p {
-    font-size: 1em;
+  p {
+    font-size: 1.2em;
   }
 
-  section {
-    padding: 20px 15px;
-  }
-
-  p, a {
-    font-size: 1em;
+  a {
+    font-size: 1.2em;
   }
 }
