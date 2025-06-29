@@ -1,0 +1,14 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #333;
+    overflow: hidden; /* Evita barras de rolagem */
+}
+
+canvas {
+    background-color: #6a95fc; /* Cor do céu, por exemplo */
+    border: 2px solid #000;
+}
