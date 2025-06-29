@@ -5,6 +5,8 @@ const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 // Pega a referência do contêiner dos controles para poder escondê-lo
 const touchControls = document.getElementById('touch-controls');
+// Aviso de orientação
+const orientationWarning = document.getElementById('orientation-warning');
 
 // Desativa o anti-aliasing para manter a pixel art nítida
 ctx.imageSmoothingEnabled = false;
@@ -24,6 +26,55 @@ const player = {
 let GRAVITY;
 let JUMP_STRENGTH;
 let PLAYER_SPEED;
+
+// NOVO: Variável para controlar o ID da animação e o estado do jogo
+let animationFrameId = null;
+let isGameRunning = false;
+
+// --- FUNÇÕES DE CONTROLE DO JOGO ---
+
+function startGame() {
+    if (isGameRunning) return; // Não inicia se já estiver rodando
+    isGameRunning = true;
+    
+    // O gameLoop agora se chama recursivamente para manter a animação
+    function loop() {
+        update();
+        draw();
+        animationFrameId = requestAnimationFrame(loop);
+    }
+    loop(); // Inicia o loop
+}
+
+function stopGame() {
+    if (!isGameRunning) return; // Não para se não estiver rodando
+    isGameRunning = false;
+    cancelAnimationFrame(animationFrameId);
+    animationFrameId = null;
+}
+
+
+// --- FUNÇÃO PRINCIPAL DE VERIFICAÇÃO ---
+
+function checkDeviceAndOrientation() {
+    // Detecção de dispositivo móvel (toque + tela pequena) - mais confiável que User Agent
+    const isMobile = ('ontouchstart' in window || navigator.maxTouchPoints > 0) && (window.screen.width < 1024);
+
+    if (isMobile) {
+        // Verifica a orientação comparando largura e altura
+        if (window.innerWidth < window.innerHeight) { // Modo Retrato (Vertical)
+            orientationWarning.style.display = 'flex'; // Garante que o aviso está visível
+            stopGame(); // Pausa o jogo
+        } else { // Modo Paisagem (Horizontal)
+            orientationWarning.style.display = 'none'; // Esconde o aviso
+            startGame(); // Inicia/retoma o jogo
+        }
+    } else {
+        // Se não for um dispositivo móvel, apenas inicia o jogo
+        orientationWarning.style.display = 'none';
+        startGame();
+    }
+}
 
 // --- FUNÇÕES DE VISIBILIDADE DA UI ---
 // Função para esconder os controles de toque
@@ -219,11 +270,20 @@ function gameLoop() {
 }
 
 // --- INICIALIZAÇÃO DO JOGO ---
-// Garante que a imagem foi carregada antes de iniciar o jogo
+
+// A função gameLoop foi substituída pela lógica de startGame/stopGame
+// Então não a definimos mais de forma isolada.
+
 playerImage.onload = () => {
     resizeCanvas(); // Configura o tamanho inicial
-    gameLoop();     // Inicia o loop do jogo
+    checkDeviceAndOrientation(); // <-- PONTO DE ENTRADA PRINCIPAL
 };
+
+// Reconfigura o canvas e verifica a orientação sempre que a janela mudar
+window.addEventListener('resize', () => {
+    resizeCanvas();
+    checkDeviceAndOrientation();
+});
 
 // Reconfigura o canvas se o tamanho da janela do navegador mudar
 window.addEventListener('resize', resizeCanvas);
