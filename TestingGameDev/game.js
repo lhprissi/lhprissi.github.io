@@ -58,8 +58,8 @@ function stopGame() {
 
 function checkDeviceAndOrientation() {
     // Detecção de dispositivo móvel (toque + tela pequena) - mais confiável que User Agent
-    const isMobile = ('ontouchstart' in window || navigator.maxTouchPoints > 0) && (window.screen.width < 1024);
-
+    const isMobile = window.matchMedia('(pointer: coarse)').matches && window.matchMedia('(hover: none)').matches;
+    
     if (isMobile) {
         // Verifica a orientação comparando largura e altura
         if (window.innerWidth < window.innerHeight) { // Modo Retrato (Vertical)
