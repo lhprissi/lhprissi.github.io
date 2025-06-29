@@ -1,9 +1,15 @@
-// game.js
+// game.js - Versão Atualizada
+
+// --- CONFIGURAÇÃO INICIAL ---
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
+// Pega a referência do contêiner dos controles para poder escondê-lo
+const touchControls = document.getElementById('touch-controls');
+
+// Desativa o anti-aliasing para manter a pixel art nítida
 ctx.imageSmoothingEnabled = false;
 
-// Objeto do jogador
+// --- OBJETOS E ESTADO DO JOGO ---
 const player = {
     x: 50,
     y: 0,
@@ -14,34 +20,46 @@ const player = {
     facingLeft: false
 };
 
-// --- NOVO: Variáveis de física que serão ajustadas dinamicamente ---
+// Variáveis de física que serão ajustadas dinamicamente ao tamanho da tela
 let GRAVITY;
 let JUMP_STRENGTH;
 let PLAYER_SPEED;
 
-// Função para ajustar o canvas e as variáveis de jogo à resolução da tela
+// --- FUNÇÕES DE VISIBILIDADE DA UI ---
+// Função para esconder os controles de toque
+function hideTouchControls() {
+    if (touchControls && !touchControls.classList.contains('hidden')) {
+        touchControls.classList.add('hidden');
+    }
+}
+
+// Função para mostrar os controles de toque
+function showTouchControls() {
+    if (touchControls && touchControls.classList.contains('hidden')) {
+        touchControls.classList.remove('hidden');
+    }
+}
+
+
+// --- LÓGICA DE RESPONSIVIDADE ---
 function resizeCanvas() {
     const dpr = window.devicePixelRatio || 1;
-    const rect = canvas.getBoundingClientRect(); // Usa getBoundingClientRect para mais precisão
+    const rect = canvas.getBoundingClientRect();
 
     canvas.width = rect.width * dpr;
     canvas.height = rect.height * dpr;
     
     ctx.scale(dpr, dpr);
 
-    canvas.style.width = `${rect.width}px`;
-    canvas.style.height = `${rect.height}px`;
+    // Redimensiona o personagem para ter 30% da altura da tela
+    player.height = window.innerHeight * 0.3;
+    player.width = player.height; // Mantém o personagem quadrado
 
-    // --- LÓGICA DE RESPONSIVIDADE MELHORADA ---
-    // Redimensiona personagem proporcionalmente à altura da tela, para consistência
-    player.height = window.innerHeight * 0.30; // Personagem tem 30% da altura da tela
-    player.width = player.height; // Mantém o aspect ratio 1:1
-
-    // Ajusta as variáveis de física para serem proporcionais ao tamanho da tela
-    // Isso garante que a "sensação" do jogo (pulo, velocidade) seja a mesma em qualquer resolução.
-    PLAYER_SPEED = window.innerWidth * 0.002;    // Velocidade é 0.2% da largura da tela por frame
-    GRAVITY = window.innerHeight * 0.0005;        // Gravidade proporcional à altura
-    JUMP_STRENGTH = -(window.innerHeight * 0.025); // Força do pulo proporcional à altura
+    // Ajusta as variáveis de física para serem proporcionais à tela,
+    // garantindo que a jogabilidade seja consistente em qualquer resolução.
+    PLAYER_SPEED = window.innerWidth * 0.002;
+    GRAVITY = window.innerHeight * 0.0005;
+    JUMP_STRENGTH = -(window.innerHeight * 0.025);
     
     // Reposiciona o jogador no chão após redimensionar
     player.y = window.innerHeight - player.height;
@@ -52,8 +70,7 @@ function resizeCanvas() {
     }
 }
 
-
-// --- LÓGICA DE ANIMAÇÃO (sem alterações) ---
+// --- ANIMAÇÃO DO SPRITE ---
 const FRAME_WIDTH = 64;
 const FRAME_HEIGHT = 64;
 const NUM_FRAMES = 5;
@@ -65,7 +82,7 @@ const FRAME_DELAY = 10;
 const playerImage = new Image();
 playerImage.src = 'img/personagem.png';
 
-// --- CONTROLES (sem alterações na lógica, apenas nos IDs dos botões) ---
+// --- CONTROLES E INPUTS ---
 const keys = {
     right: false,
     left: false,
@@ -76,75 +93,50 @@ const btnLeft = document.getElementById('left-btn');
 const btnRight = document.getElementById('right-btn');
 const btnUp = document.getElementById('up-btn');
 
-// Usando 'pointer' para abranger mouse e toque
-btnLeft?.addEventListener('pointerdown', () => keys.left = true);
-btnLeft?.addEventListener('pointerup', () => keys.left = false);
-btnLeft?.addEventListener('pointerleave', () => keys.left = false); // Evita botão "preso"
+// Listeners para os botões de toque
+btnLeft?.addEventListener('pointerdown', () => { showTouchControls(); keys.left = true; });
+btnLeft?.addEventListener('pointerup', () => { keys.left = false; });
+btnLeft?.addEventListener('pointerleave', () => { keys.left = false; });
 
-btnRight?.addEventListener('pointerdown', () => keys.right = true);
-btnRight?.addEventListener('pointerup', () => keys.right = false);
-btnRight?.addEventListener('pointerleave', () => keys.right = false);
+btnRight?.addEventListener('pointerdown', () => { showTouchControls(); keys.right = true; });
+btnRight?.addEventListener('pointerup', () => { keys.right = false; });
+btnRight?.addEventListener('pointerleave', () => { keys.right = false; });
 
-btnUp?.addEventListener('pointerdown', () => { if(player.isGrounded) keys.up = true; });
-btnUp?.addEventListener('pointerup', () => keys.up = false);
+btnUp?.addEventListener('pointerdown', () => {
+    showTouchControls();
+    if (player.isGrounded) {
+        keys.up = true;
+    }
+});
+btnUp?.addEventListener('pointerup', () => { keys.up = false; });
 
-
+// Listeners para o teclado
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight' || e.key === 'd') keys.right = true;
-    if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = true;
-    if (e.key === 'ArrowUp' || e.key === 'w' || e.key === ' ') keys.up = true;
+    hideTouchControls(); // Esconde os controles ao usar o teclado
+    if (e.key === 'ArrowRight' || e.key.toLowerCase() === 'd') keys.right = true;
+    if (e.key === 'ArrowLeft' || e.key.toLowerCase() === 'a') keys.left = true;
+    if (e.key === 'ArrowUp' || e.key.toLowerCase() === 'w' || e.key === ' ') keys.up = true;
 });
 
 document.addEventListener('keyup', (e) => {
-    if (e.key === 'ArrowRight' || e.key === 'd') keys.right = false;
-    if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = false;
-    if (e.key === 'ArrowUp' || e.key === 'w' || e.key === ' ') keys.up = false;
+    if (e.key === 'ArrowRight' || e.key.toLowerCase() === 'd') keys.right = false;
+    if (e.key === 'ArrowLeft' || e.key.toLowerCase() === 'a') keys.left = false;
+    if (e.key === 'ArrowUp' || e.key.toLowerCase() === 'w' || e.key === ' ') keys.up = false;
 });
 
 
-function draw() {
-    // Limpa a tela. As coordenadas são relativas ao canvas sem escala de DPR
-    // porque `scale` foi chamado no `ctx`
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+// --- FUNÇÕES PRINCIPAIS DO JOGO ---
 
-    // Animação do personagem
-    if (keys.left || keys.right) {
-        frameCounter++;
-        if (frameCounter >= FRAME_DELAY) {
-            currentFrame = (currentFrame + 1) % NUM_FRAMES;
-            frameCounter = 0;
-        }
-    } else {
-        currentFrame = 0;
-    }
-
-    const sx = (currentFrame % FRAME_COLUMNS) * FRAME_WIDTH;
-    const sy = Math.floor(currentFrame / FRAME_COLUMNS) * FRAME_HEIGHT;
-
-    // Arredondar posições ajuda a manter a nitidez da pixel art
-    const drawX = Math.round(player.x);
-    const drawY = Math.round(player.y);
-    const drawW = Math.round(player.width);
-    const drawH = Math.round(player.height);
-
-    // Vira o personagem
-    if (player.facingLeft) {
-        ctx.save();
-        ctx.scale(-1, 1);
-        // Ao inverter o contexto, precisamos desenhar em uma coordenada negativa
-        ctx.drawImage(playerImage, sx, sy, FRAME_WIDTH, FRAME_HEIGHT, -drawX - drawW, drawY, drawW, drawH);
-        ctx.restore();
-    } else {
-        ctx.drawImage(playerImage, sx, sy, FRAME_WIDTH, FRAME_HEIGHT, drawX, drawY, drawW, drawH);
-    }
-}
-
+/**
+ * Atualiza o estado do jogo (física, movimento, input).
+ * Não desenha nada na tela.
+ */
 function update() {
-    // --- LÓGICA DE FÍSICA ---
+    // Aplica a gravidade
     player.velocityY += GRAVITY;
     player.y += player.velocityY;
 
-    // Verificação de colisão com o chão
+    // Verifica colisão com o chão
     const groundLevel = window.innerHeight - player.height;
     if (player.y > groundLevel) {
         player.y = groundLevel;
@@ -154,7 +146,7 @@ function update() {
         player.isGrounded = false;
     }
 
-    // --- LÓGICA DE MOVIMENTO ---
+    // Processa o movimento horizontal
     if (keys.right) {
         player.x += PLAYER_SPEED;
         player.facingLeft = false;
@@ -164,29 +156,74 @@ function update() {
         player.facingLeft = true;
     }
 
-    // Lógica de pulo
+    // Processa o pulo
     if (keys.up && player.isGrounded) {
         player.velocityY = JUMP_STRENGTH;
         player.isGrounded = false;
-        keys.up = false; // Consome o pulo para evitar pulos múltiplos com um toque
+        keys.up = false; // Evita pulos múltiplos com uma só pressionada
     }
     
-    // Limites da tela
-    if(player.x < 0) player.x = 0;
-    if(player.x + player.width > window.innerWidth) player.x = window.innerWidth - player.width;
+    // Impede o jogador de sair pelos lados da tela
+    if (player.x < 0) {
+        player.x = 0;
+    }
+    if (player.x + player.width > window.innerWidth) {
+        player.x = window.innerWidth - player.width;
+    }
 }
 
-// --- LOOP PRINCIPAL DO JOGO ---
+/**
+ * Desenha tudo na tela (personagem, cenário, etc.).
+ * Não altera o estado do jogo.
+ */
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Lógica da animação
+    if (keys.left || keys.right) {
+        frameCounter++;
+        if (frameCounter >= FRAME_DELAY) {
+            currentFrame = (currentFrame + 1) % NUM_FRAMES;
+            frameCounter = 0;
+        }
+    } else {
+        currentFrame = 0; // Personagem parado
+    }
+
+    const sx = (currentFrame % FRAME_COLUMNS) * FRAME_WIDTH;
+    const sy = Math.floor(currentFrame / FRAME_COLUMNS) * FRAME_HEIGHT;
+    
+    const drawX = Math.round(player.x);
+    const drawY = Math.round(player.y);
+    const drawW = Math.round(player.width);
+    const drawH = Math.round(player.height);
+
+    // Vira a imagem se o jogador estiver virado para a esquerda
+    if (player.facingLeft) {
+        ctx.save();
+        ctx.scale(-1, 1);
+        ctx.drawImage(playerImage, sx, sy, FRAME_WIDTH, FRAME_HEIGHT, -drawX - drawW, drawY, drawW, drawH);
+        ctx.restore();
+    } else {
+        ctx.drawImage(playerImage, sx, sy, FRAME_WIDTH, FRAME_HEIGHT, drawX, drawY, drawW, drawH);
+    }
+}
+
+/**
+ * O loop principal que roda o jogo.
+ */
 function gameLoop() {
-    update(); // 1. Atualiza o estado do jogo
-    draw();   // 2. Desenha o estado atual na tela
-    requestAnimationFrame(gameLoop); // Pede ao navegador para chamar gameLoop na próxima vez
+    update(); // 1. Calcula a nova posição e estado de tudo
+    draw();   // 2. Desenha o resultado na tela
+    requestAnimationFrame(gameLoop); // Pede ao navegador para chamar a função novamente
 }
 
-// --- INICIALIZAÇÃO ---
+// --- INICIALIZAÇÃO DO JOGO ---
+// Garante que a imagem foi carregada antes de iniciar o jogo
 playerImage.onload = () => {
-    resizeCanvas(); // Chama uma vez para configurar o tamanho inicial
-    gameLoop();
+    resizeCanvas(); // Configura o tamanho inicial
+    gameLoop();     // Inicia o loop do jogo
 };
 
-window.addEventListener('resize', resizeCanvas); // Re-calcula tudo quando a janela muda de tamanho
+// Reconfigura o canvas se o tamanho da janela do navegador mudar
+window.addEventListener('resize', resizeCanvas);
