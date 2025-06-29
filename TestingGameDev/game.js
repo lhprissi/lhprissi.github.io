@@ -2,7 +2,7 @@ const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
 // Constantes do jogo
-const GRAVITY = 0.1;
+const GRAVITY = 0.2;
 const JUMP_STRENGTH = -10;
 const PLAYER_SPEED = 2;
 
@@ -150,3 +150,44 @@ function gameLoop() {
 playerImage.onload = () => {
     gameLoop();
 };
+
+const joystickZone = document.getElementById('joystick-zone');
+const joystickBase = document.getElementById('joystick-base');
+const joystickThumb = document.getElementById('joystick-thumb');
+
+let isTouching = false;
+let touchStartX = 0;
+let currentTouchX = 0;
+
+joystickZone.addEventListener('touchstart', (e) => {
+    isTouching = true;
+    touchStartX = e.touches[0].clientX;
+}, { passive: false });
+
+joystickZone.addEventListener('touchmove', (e) => {
+    if (!isTouching) return;
+    currentTouchX = e.touches[0].clientX;
+    const deltaX = currentTouchX - touchStartX;
+
+    // Mover o thumb
+    joystickThumb.style.left = `${35 + Math.max(-30, Math.min(30, deltaX / 2))}px`;
+
+    // Controle baseado no desvio
+    if (deltaX > 15) {
+        keys.right = true;
+        keys.left = false;
+    } else if (deltaX < -15) {
+        keys.left = true;
+        keys.right = false;
+    } else {
+        keys.left = false;
+        keys.right = false;
+    }
+}, { passive: false });
+
+joystickZone.addEventListener('touchend', () => {
+    isTouching = false;
+    keys.left = false;
+    keys.right = false;
+    joystickThumb.style.left = '35px'; // voltar ao centro
+});
