@@ -2,7 +2,7 @@ const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
 // Constantes do jogo
-const GRAVITY = 0.5;
+const GRAVITY = 0.1;
 const JUMP_STRENGTH = -10;
 const PLAYER_SPEED = 2;
 
@@ -37,6 +37,22 @@ const keys = {
     left: false,
     up: false
 };
+
+// Pegando os botões da tela
+const btnLeft = document.getElementById('left-btn');
+const btnRight = document.getElementById('right-btn');
+const btnUp = document.getElementById('up-btn');
+
+// Ativar movimento ao pressionar (touchstart ou mousedown)
+btnLeft.addEventListener('pointerdown', () => keys.left = true);
+btnLeft.addEventListener('pointerup', () => keys.left = false);
+
+btnRight.addEventListener('pointerdown', () => keys.right = true);
+btnRight.addEventListener('pointerup', () => keys.right = false);
+
+btnUp.addEventListener('pointerdown', () => keys.up = true);
+btnUp.addEventListener('pointerup', () => keys.up = false);
+
 
 document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight') keys.right = true;
