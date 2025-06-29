@@ -3,26 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Jogo de teste</title>
+    <title>Jogo Responsivo</title>
     <link rel="stylesheet" href="style.css">
-    
 </head>
-
 <body>
     <canvas id="gameCanvas"></canvas>
     
-    <!-- Analógico virtual -->
-    <div id="joystick-zone">
-    <div id="joystick-base">
-    <div id="joystick-thumb"></div>
-    </div>
-    </div>
-
-    <!-- Controles de toque -->
     <div id="touch-controls">
-     <button id="left-btn">◀️</button>
-     <button id="up-btn">🔼</button>
-     <button id="right-btn">▶️</button>
+        <div id="movement-controls">
+            <button id="left-btn">◀️</button>
+            <button id="right-btn">▶️</button>
+        </div>
+        <div id="action-controls">
+            <button id="up-btn">🔼</button>
+        </div>
     </div>
     
     <script src="game.js"></script>
