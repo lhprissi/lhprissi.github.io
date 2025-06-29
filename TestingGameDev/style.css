@@ -1,11 +1,15 @@
+/* style.css */
 body {
     margin: 0;
     padding: 0;
     overflow: hidden;
     background-color: #333;
-    touch-action: none;
+    /* Impede zoom e rolagem em dispositivos de toque */
+    touch-action: none; 
     height: 100vh;
     width: 100vw;
+    /* Garante que os filhos posicionados absolutamente se baseiem no body */
+    position: relative; 
 }
 
 canvas {
@@ -15,51 +19,50 @@ canvas {
     height: 100vh;
 }
 
+/* Contêiner geral para todos os controles de toque */
 #touch-controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 25%; /* Ocupa o quarto inferior da tela */
     display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
+    justify-content: space-between; /* Alinha os grupos de botões nas extremidades */
+    align-items: center;
+    padding: 0 5%; /* Espaçamento das bordas da tela */
+    box-sizing: border-box; /* Garante que o padding não aumente o tamanho */
 }
+
+/* Grupo de botões de movimento (esquerda e direita) */
+#movement-controls {
+    display: flex;
+    gap: 20px;
+}
+
+/* Grupo do botão de pulo */
+#action-controls {
+    display: flex;
+}
+
 
 #touch-controls button {
-    width: 60px;
-    height: 60px;
-    font-size: 24px;
-    border-radius: 10px;
+    width: 70px;
+    height: 70px;
+    font-size: 30px;
+    border-radius: 50%; /* Botões redondos */
     border: none;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.5); /* Fundo semitransparente */
     color: #333;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    /* Garante que o clique no botão não afete o canvas */
     touch-action: manipulation;
-
-    
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+/* Remove a div não utilizada do joystick para simplificar */
+/* Se quiser implementar o joystick, a lógica no JS precisará ser adicionada */
 #joystick-zone {
-    position: fixed;
-    bottom: 5%;
-    left: 5%;
-    width: 25vw;
-    height: 25vw;
-    max-width: 150px;
-    max-height: 150px;
-}
-
-#joystick-thumb {
-    width: 40%;
-    height: 40%;
-    left: 30%;
-    top: 30%;
-}
-
-#jump-btn {
-    position: fixed;
-    bottom: 5%;
-    right: 5%;
-    width: 20vw;
-    height: 20vw;
-    max-width: 80px;
-    max-height: 80px;
-    font-size: 5vw;
+    display: none;
 }
