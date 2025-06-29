@@ -67,3 +67,7 @@ canvas {
 #joystick-zone {
     display: none;
 }
+
+#touch-controls.hidden {
+    display: none;
+}
