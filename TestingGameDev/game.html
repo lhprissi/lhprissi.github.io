@@ -2,22 +2,29 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Jogo de teste</title>
     <link rel="stylesheet" href="style.css">
+    
 </head>
-<div id="joystick-zone">
-  <div id="joystick-base">
-    <div id="joystick-thumb"></div>
-  </div>
-</div>
+
 <body>
-    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <canvas id="gameCanvas"></canvas>
+    
+    <!-- Analógico virtual -->
+    <div id="joystick-zone">
+    <div id="joystick-base">
+    <div id="joystick-thumb"></div>
+    </div>
+    </div>
+
+    <!-- Controles de toque -->
     <div id="touch-controls">
      <button id="left-btn">◀️</button>
      <button id="up-btn">🔼</button>
      <button id="right-btn">▶️</button>
     </div>
+    
     <script src="game.js"></script>
 </body>
 </html>
