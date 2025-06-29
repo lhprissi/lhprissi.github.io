@@ -11,6 +11,21 @@ const orientationWarning = document.getElementById('orientation-warning');
 // Desativa o anti-aliasing para manter a pixel art nítida
 ctx.imageSmoothingEnabled = false;
 
+// Mudar para tela cheia com a interação do usuário
+function enterFullscreen() {
+    const elem = document.documentElement; // Pega o elemento raiz da página (<html>)
+
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.mozRequestFullScreen) { // Firefox
+        elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) { // Chrome, Safari e Opera
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { // IE/Edge
+        elem.msRequestFullscreen();
+    }
+}
+
 // --- OBJETOS E ESTADO DO JOGO ---
 const player = {
     x: 50,
@@ -59,7 +74,7 @@ function stopGame() {
 function checkDeviceAndOrientation() {
     // Detecção de dispositivo móvel (toque + tela pequena) - mais confiável que User Agent
     const isMobile = window.matchMedia('(pointer: coarse)').matches && window.matchMedia('(hover: none)').matches;
-    
+
     if (isMobile) {
         // Verifica a orientação comparando largura e altura
         if (window.innerWidth < window.innerHeight) { // Modo Retrato (Vertical)
@@ -284,6 +299,10 @@ window.addEventListener('resize', () => {
     resizeCanvas();
     checkDeviceAndOrientation();
 });
+
+// --- NOVO: Listener para entrar em tela cheia com o primeiro toque ---
+// A opção { once: true } faz com que este listener seja executado apenas uma vez e depois removido.
+document.body.addEventListener('pointerdown', enterFullscreen, { once: true });
 
 // Reconfigura o canvas se o tamanho da janela do navegador mudar
 window.addEventListener('resize', resizeCanvas);
