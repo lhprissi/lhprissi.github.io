@@ -34,7 +34,7 @@ function resizeCanvas() {
 
     // --- LÓGICA DE RESPONSIVIDADE MELHORADA ---
     // Redimensiona personagem proporcionalmente à altura da tela, para consistência
-    player.height = window.innerHeight * 0.20; // Personagem tem 10% da altura da tela
+    player.height = window.innerHeight * 0.30; // Personagem tem 30% da altura da tela
     player.width = player.height; // Mantém o aspect ratio 1:1
 
     // Ajusta as variáveis de física para serem proporcionais ao tamanho da tela
