@@ -60,7 +60,7 @@ canvas {
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
   /* Impede que o texto/emoji dentro do botão seja selecionado */
     -webkit-user-select: none; /* Safari, Chrome, Opera */
     -moz-user-select: none;    /* Firefox */
@@ -79,4 +79,57 @@ canvas {
 
 #touch-controls.hidden {
     display: none;
+}
+
+/* --- NOVO: Estilos para o Aviso de Orientação --- */
+
+#orientation-warning {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #1a1a1a;
+    color: white;
+    z-index: 1000; /* Garante que fique em cima de tudo */
+
+    /* Centraliza o conteúdo */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+    /* Por padrão, o aviso fica escondido */
+    display: none;
+}
+
+#orientation-warning img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+    /* Animação sutil para chamar a atenção */
+    animation: rotate 1.5s ease-in-out infinite;
+}
+
+#orientation-warning h1 {
+    font-size: 1.2em;
+    max-width: 80%;
+}
+
+/* Animação do ícone */
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(-90deg); }
+    100% { transform: rotate(-90deg); }
+}
+
+/* A MÁGICA ACONTECE AQUI:
+   Esta @media query é ativada quando a altura da tela é maior que a largura (vertical)
+*/
+@media (orientation: portrait) {
+    #orientation-warning {
+        /* Mostra o aviso quando estiver na vertical */
+        display: flex;
+    }
 }
