@@ -60,6 +60,15 @@ canvas {
     display: flex;
     justify-content: center;
     align-items: center;
+    
+  /* Impede que o texto/emoji dentro do botão seja selecionado */
+    -webkit-user-select: none; /* Safari, Chrome, Opera */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* Internet Explorer/Edge */
+    user-select: none;         /* Sintaxe Padrão */
+
+    /* Desativa especificamente o menu de "callout" que aparece ao segurar no iOS (Copiar/Colar) */
+    -webkit-touch-callout: none;
 }
 
 /* Remove a div não utilizada do joystick para simplificar */
