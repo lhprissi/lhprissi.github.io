@@ -31,6 +31,7 @@ canvas {
     align-items: center;
     padding: 0 5%; /* Espaçamento das bordas da tela */
     box-sizing: border-box; /* Garante que o padding não aumente o tamanho */
+    z-index: 10; /* Garante que os controles fiquem acima do canvas */
 }
 
 /* Grupo de botões de movimento (esquerda e direita) */
