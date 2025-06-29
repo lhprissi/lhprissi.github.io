@@ -12,3 +12,22 @@ canvas {
     background-color: #6a95fc; /* Cor do céu, por exemplo */
     border: 2px solid #000;
 }
+
+#touch-controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+#touch-controls button {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    border-radius: 10px;
+    border: none;
+    background: #fff;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    touch-action: manipulation;
+}
